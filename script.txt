@@ -1,0 +1,49 @@
+CREATE DATABASE IF NOT EXISTS AGENDAMENTO_CLINICA;
+USE AGENDAMENTO_CLINICA;
+
+-- Criação da tabela pessoas
+CREATE TABLE pessoas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+);
+
+-- Criação da tabela usuarios
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_pessoa INT,
+    FOREIGN KEY (id_pessoa) REFERENCES pessoas(id)
+);
+
+-- Criação da tabela profissionais
+CREATE TABLE profissionais (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_pessoa INT,
+    especialidade VARCHAR(100),
+    FOREIGN KEY (id_pessoa) REFERENCES pessoas(id)
+);
+
+-- Criação da tabela servicos
+CREATE TABLE servicos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    descricao TEXT,
+    duracao INT
+);
+
+-- Criação da tabela agendamentos
+CREATE TABLE agendamentos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT,
+    id_profissional INT,
+    id_servico INT,
+    data_agendamento DATETIME,
+    duracao INT,
+    observacao TEXT,
+    status ENUM('agendado', 'confirmado', 'cancelado'),
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
+    FOREIGN KEY (id_profissional) REFERENCES profissionais(id),
+    FOREIGN KEY (id_servico) REFERENCES servicos(id),
+    INDEX idx_agendamentos (id_usuario, id_profissional, data_agendamento)
+);
