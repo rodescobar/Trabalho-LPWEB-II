@@ -1,0 +1,11 @@
+1) Tabela de usuarios deixa de existir e passa para pessoas
+
+2) Especialidades é uma tabela com todas as esp. e uma relaçção N xN pessoa.
+Cada pessoa pode possuir várias especialidades.
+Falta a tabela depara
+
+3) Status sai de agendamento e passa a ser uma tabela.
+
+4) Servicos é uma relação N x N com agendamento
+Cria uma tabela depara entre agendamento e servicos
+Pois um agendamento, pode possuir vários serviços
